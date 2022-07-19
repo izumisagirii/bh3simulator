@@ -1144,6 +1144,7 @@ public:
                 {
                     return true;
                 }
+                if(round>1){
                 if (!silent)
                 {
                     std::cout << std::endl
@@ -1152,6 +1153,7 @@ public:
                 if (cause_damage(enemy, true, 10 + 23 * u(e), true))
                 {
                     return true;
+                }
                 }
             }
         }
