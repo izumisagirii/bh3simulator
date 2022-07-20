@@ -1144,8 +1144,7 @@ public:
                 {
                     return true;
                 }
-                if (round > 1 && enable)
-                {
+                if(round>1&&enable){
                     if (!silent)
                     {
                         std::cout << std::endl
