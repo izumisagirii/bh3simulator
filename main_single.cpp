@@ -1485,9 +1485,12 @@ int main(int argc, char *argv[])
 {
     u = std::uniform_real_distribution<float>(0, 1);
     e.seed(time(0));
+    system("chcp 65001"); //修改cmd编码为UTF-8
     if (argc == 1)
     {
         helper();
+        std::cout<<std::endl;
+        system("pause");
         return 0;
     }
     else if (argc == 2)
@@ -1568,6 +1571,8 @@ int main(int argc, char *argv[])
                 delete hr2;
             }
         }
+        std::cout<<std::endl;
+        system("pause");
         return 0;
     }
     else if (argc == 3)
@@ -1625,9 +1630,13 @@ int main(int argc, char *argv[])
         }
         delete hr1;
         delete hr2;
+        std::cout<<std::endl;
+        system("pause");
         return 0;
     }
     std::cerr << "输入不合法！" << '\n';
     helper();
+    std::cout<<std::endl;
+    system("pause");
     return 1;
 }
