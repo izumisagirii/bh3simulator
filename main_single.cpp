@@ -1119,7 +1119,7 @@ public:
         {
             if (before_move(1))
             {
-                bool enable;
+                bool enable = false;
                 if (hua)
                 {
                     hua = false;
@@ -1429,6 +1429,7 @@ void helper()
 {
     std::cout << "崩坏3 2022 夏活 海滨乱斗 SIMULITOR" << std::endl;
     std::cout << "                       --sdfs     " << std::endl;
+    std::cout << "请使用cmd命令行输入如下命令            " << std::endl;
     std::cout << "usage:                            " << std::endl;
     std::cout << "main num1 num2                    " << std::endl;
     std::cout << "    指定num1和num2编号英桀模拟乱斗" << std::endl;
