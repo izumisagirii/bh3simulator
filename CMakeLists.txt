@@ -26,20 +26,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-if(ANDROID)
-  add_library(BH3sim SHARED
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-  )
-else()
+
   add_executable(BH3sim WIN32
     main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
   )
-endif()
+add_executable(BH3sim_command_line main_single.cpp)
 
 target_link_libraries(BH3sim PRIVATE Qt5::Widgets)

@@ -1121,9 +1121,11 @@ public:
         {
             if (before_move(1))
             {
+                bool enable = false;
                 if (hua)
                 {
                     hua = false;
+                    enable = true;
                     status.def -= 3;
                 }
                 damage = status.atk;
@@ -1144,16 +1146,16 @@ public:
                 {
                     return true;
                 }
-                if(round>1){
-                if (!silent)
-                {
-                    std::cout << std::endl
-                              << "[华：上伞若水] ";
-                }
-                if (cause_damage(enemy, true, 10 + 23 * u(e), true))
-                {
-                    return true;
-                }
+                if(round>1&&enable){
+                    if (!silent)
+                    {
+                        std::cout << std::endl
+                                  << "[华：上伞若水] ";
+                    }
+                    if (cause_damage(enemy, true, 10 + 23 * u(e), true))
+                    {
+                        return true;
+                    }
                 }
             }
         }
@@ -1491,11 +1493,11 @@ public:
     }
 protected:
     int overflow(int c = EOF){
-       if(c!=EOF){
-           buffer.push_back((char)c);
+        if(c!=EOF){
+            buffer.push_back((char)c);
 
-       }
-       return c;
+        }
+        return c;
     }
     int sync(){
         if(!buffer.empty()){
@@ -1563,104 +1565,33 @@ void MainWindow::seth(int num){
     ready = !ready;
 }
 void MainWindow::run(){
-       if (qjyc)
-        {
-            int times = 1000000;
-            // try
-            // {
-            // }
-            // catch(const std::exception& e)
-            // {
-            //     std::cerr << e.what() << '\n';
-            //     std::cerr << "输入不合法！"<< '\n';
-            //     helper();
-            //     return 1;
-            // }
-            std::cout << std::endl
-                      << "千界一乘第零额定功率：";
+    if (qjyc)
+    {
+        int times = 1000000;
+        // try
+        // {
+        // }
+        // catch(const std::exception& e)
+        // {
+        //     std::cerr << e.what() << '\n';
+        //     std::cerr << "输入不合法！"<< '\n';
+        //     helper();
+        //     return 1;
+        // }
+        std::cout << std::endl
+                  << "千界一乘第零额定功率：";
 
-                    int win_num1 = 0;
-                    int win_num2 = 0;
-                    for (int t = 0; t < times; t++)
-                    {
-                        hero *hr1 = herofac(h1num);
-                        hero *hr2 = herofac(h2num);
-                        hr1->init(true);
-                        hr2->init(true);
-                        int round = 1;
-                        while (round < 30)
-                        {
-                            if (hr1->on_round(round))
-                                break;
-                            if (hr2->on_round(round))
-                                break;
-                            if (hr1->status.spd > hr2->status.spd)
-                            {
-                                if (hr1->attack(hr2, round))
-                                    break;
-                                if (hr2->attack(hr1, round))
-                                    break;
-                            }
-                            else if(hr1->status.spd == hr2->status.spd){
-                                if(u(e)<0.5){
-                                    if (hr1->attack(hr2, round))
-                                        break;
-                                    if (hr2->attack(hr1, round))
-                                        break;
-                                }else{
-                                    if (hr2->attack(hr1, round))
-                                        break;
-                                    if (hr1->attack(hr2, round))
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                if (hr2->attack(hr1, round))
-                                    break;
-                                if (hr1->attack(hr2, round))
-                                    break;
-                            }
-                            round++;
-                        }
-                        if ((int)hr1->live)
-                        {
-                            win_num1++;
-                        }
-                        if ((int)hr2->live)
-                        {
-                            win_num2++;
-                        }
-                        delete hr1;
-                        delete hr2;
-                    }
-                    hero *hr1 = herofac(h1num);
-                    hero *hr2 = herofac(h2num);
-                    hr1->init(false);
-                    hr2->init(false);
-                    std::cout << std::endl
-                              << "对战双方 " << hr1->name << " VS " << hr2->name;
-                    std::cout << std::endl<<"    "
-                              << hr1->name << "获胜" << win_num1 << "次，胜率" << (float)win_num1 / times;
-                    std::cout << std::endl<<"    "
-                              << hr2->name << "获胜" << win_num2 << "次，胜率" << (float)win_num2 / times;
-//                    std::cout.flush();
-                    delete hr1;
-                    delete hr2;
-       }
-        else
+        int win_num1 = 0;
+        int win_num2 = 0;
+        for (int t = 0; t < times; t++)
         {
             hero *hr1 = herofac(h1num);
             hero *hr2 = herofac(h2num);
-            hr1->init(false);
-            hr2->init(false);
+            hr1->init(true);
+            hr2->init(true);
             int round = 1;
-            std::cout << std::endl
-                      << "对战双方 " << hr1->name << " VS " << hr2->name;
-            while (round < 100)
+            while (round < 30)
             {
-                std::cout << std::endl
-                          << "=========round " << round;
                 if (hr1->on_round(round))
                     break;
                 if (hr2->on_round(round))
@@ -1693,45 +1624,116 @@ void MainWindow::run(){
                         break;
                 }
                 round++;
-                std::cout << std::endl
-                          << "剩余血量 " << hr1->name << "：" << (int)hr1->status.hp << " " << hr2->name << "：" << (int)hr2->status.hp;
             }
             if ((int)hr1->live)
             {
-                std::cout << std::endl
-                          << hr1->name << "获胜！" << std::endl;
+                win_num1++;
             }
             if ((int)hr2->live)
             {
-                std::cout << std::endl
-                          << hr2->name << "获胜！" << std::endl;
+                win_num2++;
             }
             delete hr1;
             delete hr2;
         }
-       std::cout.flush();
+        hero *hr1 = herofac(h1num);
+        hero *hr2 = herofac(h2num);
+        hr1->init(false);
+        hr2->init(false);
+        std::cout << std::endl
+                  << "对战双方 " << hr1->name << " VS " << hr2->name;
+        std::cout << std::endl<<"    "
+                  << hr1->name << "获胜" << win_num1 << "次，胜率" << (float)win_num1 / times;
+        std::cout << std::endl<<"    "
+                  << hr2->name << "获胜" << win_num2 << "次，胜率" << (float)win_num2 / times;
+        //                    std::cout.flush();
+        delete hr1;
+        delete hr2;
+    }
+    else
+    {
+        hero *hr1 = herofac(h1num);
+        hero *hr2 = herofac(h2num);
+        hr1->init(false);
+        hr2->init(false);
+        int round = 1;
+        std::cout << std::endl
+                  << "对战双方 " << hr1->name << " VS " << hr2->name;
+        while (round < 100)
+        {
+            std::cout << std::endl
+                      << "=========round " << round;
+            if (hr1->on_round(round))
+                break;
+            if (hr2->on_round(round))
+                break;
+            if (hr1->status.spd > hr2->status.spd)
+            {
+                if (hr1->attack(hr2, round))
+                    break;
+                if (hr2->attack(hr1, round))
+                    break;
+            }
+            else if(hr1->status.spd == hr2->status.spd){
+                if(u(e)<0.5){
+                    if (hr1->attack(hr2, round))
+                        break;
+                    if (hr2->attack(hr1, round))
+                        break;
+                }else{
+                    if (hr2->attack(hr1, round))
+                        break;
+                    if (hr1->attack(hr2, round))
+                        break;
+                }
+            }
+            else
+            {
+                if (hr2->attack(hr1, round))
+                    break;
+                if (hr1->attack(hr2, round))
+                    break;
+            }
+            round++;
+            std::cout << std::endl
+                      << "剩余血量 " << hr1->name << "：" << (int)hr1->status.hp << " " << hr2->name << "：" << (int)hr2->status.hp;
+        }
+        if ((int)hr1->live)
+        {
+            std::cout << std::endl
+                      << hr1->name << "获胜！" << std::endl;
+        }
+        if ((int)hr2->live)
+        {
+            std::cout << std::endl
+                      << hr2->name << "获胜！" << std::endl;
+        }
+        delete hr1;
+        delete hr2;
+    }
+    std::cout.flush();
 }
 
 void MainWindow::on_pushButton_11_released()
 {
-seth(11);
+    seth(11);
 }
 
 void MainWindow::on_pushButton_4_released()
 {
-seth(4);
+    seth(4);
 }
 
 void MainWindow::on_pushButton_released()
 {
-seth(1);
+    seth(1);
 }
 
 
 
 void MainWindow::on_pushButton_3_released()
 {
-seth(3);
+    seth(3);
 }
 
 void MainWindow::on_pushButton_9_released()

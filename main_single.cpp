@@ -1119,9 +1119,11 @@ public:
         {
             if (before_move(1))
             {
+                bool enable;
                 if (hua)
                 {
                     hua = false;
+                    enable = true;
                     status.def -= 3;
                 }
                 damage = status.atk;
@@ -1142,7 +1144,7 @@ public:
                 {
                     return true;
                 }
-                if (round > 1)
+                if (round > 1 && enable)
                 {
                     if (!silent)
                     {
